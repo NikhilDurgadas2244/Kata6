@@ -5,13 +5,14 @@ import java.util.stream.Collectors;
 import toys.Car;
 import toys.Helicopter;
 import toys.SerialNumberGenerator;
+import toys.ToyBusiness;
 
 
 public class Main {
 
     
     public static void main(String[] args) {
-        SerialNumberGenerator generator = new SerialNumberGenerator();
+        ToyBusiness business = new ToyBusiness();
         ArrayList<Car> cars = new ArrayList<>();
         ArrayList<Helicopter> helicopters = new ArrayList<>();
         
@@ -24,18 +25,12 @@ public class Main {
            
             switch(line){
                 case "car":
-                    Car car = new Car(generator.next());
-                    car.pack();
-                    car.label();
-                    cars.add(car);
-                    System.out.println(cars.stream().map(c -> c.getSerialNumber().toString()).collect(Collectors.joining(", ")));
+                    cars.add(business.createCar());
+                    System.out.println("Cars list: " + cars.stream().map(c -> c.getSerialNumber().toString()).collect(Collectors.joining(", ")));
                     break;
                 
                 case "helicopter":
-                    Helicopter helicopter = new Helicopter(generator.next());
-                    helicopter.pack();
-                    helicopter.label();
-                    helicopters.add(helicopter);
+                    helicopters.add(business.createHelicopter());
                     System.out.println("Helicopters list: " + helicopters.stream().map(c -> c.getSerialNumber().toString()).collect(Collectors.joining(", ")));
                     break;
                     
