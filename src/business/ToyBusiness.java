@@ -4,18 +4,20 @@ package business;
 import toyproducts.Toy;
 import factories.SerialNumberGenerator;
 import factories.ToyFactory;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ToyBusiness {
-    final protected SerialNumberGenerator generator = new SerialNumberGenerator();
-    final private ToyFactory toyFactory;
+    final private SerialNumberGenerator generator = new SerialNumberGenerator();
+    final private Map<String, ToyFactory> toyFactories = new HashMap<>();
 
-    public ToyBusiness(ToyFactory toyFactory) {
-        this.toyFactory = toyFactory;
+
+    public void add (String type, ToyFactory toyFactory){
+        toyFactories.put(type, toyFactory);
     }
-
     
     public Toy produceToy(String type){
-        return this.toyFactory.produceToy(type);
+        return toyFactories.get(type).produceToy(generator.next());
     }
    
 }

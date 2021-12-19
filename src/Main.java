@@ -5,22 +5,21 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import toyproducts.Toy;
 import business.ToyBusiness;
-import factories.regionalfactories.AmericanToyFactory;
-import factories.regionalfactories.AsianToyFactory;
+import factories.regionalfactories.AmericanCarToyFactory;
+import factories.regionalfactories.AmericanHelicopterToyFactory;
+import factories.regionalfactories.AsianCarToyFactory;
+import factories.regionalfactories.AsianHelicopterToyFactory;
 
 
 public class Main {
-
-    
     public static void main(String[] args) {
-        AmericanToyFactory americanToyFactory = new AmericanToyFactory();
-        AsianToyFactory asianToyFactory = new AsianToyFactory();
-        ToyBusiness business = new ToyBusiness(asianToyFactory);
+        ToyBusiness toyBusiness = new ToyBusiness();
+        toyBusiness.add("car", new AsianCarToyFactory());
+        toyBusiness.add("helicopter", new AmericanHelicopterToyFactory());
         ArrayList<Toy> toys = new ArrayList<>();
         
         Scanner in = new Scanner(System.in);
         String line = "";
-        
         
         while (!line.equals("exit")){
             line = in.nextLine();
@@ -28,7 +27,7 @@ public class Main {
             switch(line){
                 case "car":
                 case "helicopter":
-                    toys.add(business.produceToy(line));
+                    toys.add(toyBusiness.produceToy(line));
                     System.out.println("Toys list: " + toys.stream().map(c -> c.toString()).collect(Collectors.joining(", ")));
                     break;
                     
